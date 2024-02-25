@@ -1,0 +1,8 @@
+{
+  "name": "zendesk_data",
+  "private": true,
+  "dependencies": {
+    "chart.js": "^4.4.1",
+    "chartkick": "^5.0.1"
+  }
+}
