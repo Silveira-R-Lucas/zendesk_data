@@ -1,2 +1,59 @@
 // Custom bootstrap variables must be set or imported *before* bootstrap.
 @import "bootstrap";
+
+.tkt-btn-row {
+  display: flex;
+  justify-content: flex-end;
+  margin: 15px;
+}
+
+.tkt-form{
+  padding: 1%;
+}
+
+.tkt-text-field-form {
+  margin-left: 4%;
+}
+
+.m10{
+  margin: 1%;
+}
+
+.w-auto{
+  width: auto;
+}
+
+.tkt-data-form {
+  margin-left: 15%;
+}
+
+.tkt-select-form {
+  height: 30px;
+}
+
+.tkt-squad-form{
+  margin-left: 16%;
+}
+
+.ml-less1 {
+  margin-left: -10px;
+}
+
+
+.ml-less5 {
+  margin-left: -5px;
+}
+
+.tkt-form-btn {
+  margin-right: 4%;
+  margin-top: 10px;
+}
+
+.tkt-border-form{
+  border-color: #c4c8cb;
+  border-radius: 6px;
+}
+
+.txt-align-c{
+  text-align: center;
+}

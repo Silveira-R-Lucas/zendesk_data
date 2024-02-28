@@ -3,6 +3,7 @@
   "private": true,
   "dependencies": {
     "chart.js": "^4.4.1",
-    "chartkick": "^5.0.1"
+    "chartkick": "^5.0.1",
+    "stimulus": "^3.2.2"
   }
 }

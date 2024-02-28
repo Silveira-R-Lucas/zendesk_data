@@ -1,0 +1,70 @@
+<div class="container">
+  <h1 class="m10">Tickets</h1>
+  <div class="container text-center">
+    <%= form_tag(tickets_path, method: "GET") do |form| %>
+      <div class="row">
+        <h5 class="col col-lg-2">Cliente</h5>
+        <h5 class="col col-sm-9 ml-less1">Data</h5>
+      </div>
+      <div class="row m10">
+        <%= text_field_tag(:search, params[:search], class: "col-4 tkt-text-field-form tkt-border-form") %>
+        <%= label_tag(:start_date, "Inicio", class: 'w-auto tkt-data-form') %>
+        <%= date_field_tag :start_date, '',class: "col col-lg-2 tkt-border-form" %>
+        <%= label_tag(:end_date, "Fim", class: 'w-auto') %>
+        <%= date_field_tag :end_date, '',class: "col col-lg-2 tkt-border-form" %>
+      </div>
+      <div class="row m10">
+        <h5 class="col col-lg-2 ml-less5">Prioridade</h5>
+        <h5 class="col col-sm-9">Squad</h5>
+      </div>
+      <div class="row m10">
+        <%= select_tag(:prioridade, options_for_select(@prioridades.prepend('')), value: '', class: "tkt-select-form col-4 tkt-text-field-form tkt-border-form") %>
+        <%= select_tag(:fila, options_for_select(@grupos.prepend('')), value: '', class: "tkt-squad-form select-form col-5 tkt-text-field-form tkt-border-form") %>
+      </div>
+    <div class="row tkt-btn-row">
+      <%= submit_tag('Busca', class: "btn btn-dark col col-lg-2 tkt-form-btn")%>
+    <% end %>
+    </div>
+  </div>
+  <table class="table table-striped table-hover">
+    <thead class="thead-light">
+      <tr>
+        <th>ID</th>
+        <th>Criado em</th>
+        <th>Cliente</th>
+        <th>Prioridade</th>
+        <th>Status</th>
+        <th>Fila</th>
+        <th>Atribuído</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if @tickets == nil %>
+        <tr>
+        </tr>
+      <% else %>
+      <% @tickets.each do |ticket| %>
+          <tr>
+            <td><%= ticket.id %></td>
+            <td><%= ticket.criado_em %></td>
+            <td><%= ticket.organization&.nome || ticket.tipo_cliente %></td>
+            <td><%= ticket.prioridade %></td>
+            <td><%= ticket.status %></td>
+            <td><%= ticket.group&.nome %></td>
+            <td><%= ticket.usuario_atribuido&.nome %></td>
+          </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+  <div class="row justify-content-center">
+  <% if @tickets != nil %>
+    <div class="col-4 txt-align-c m10" >
+    <%= link_to_prev_page @tickets, 'Página anterior', class: "btn-dark btn m1 m10" %>
+    </div>
+    <div class="col-4 txt-align-c m10">
+    <%= link_to_next_page @tickets, 'Pŕoxima página', class: "m1 btn btn-dark m10" %>
+    </div>
+  <% end %>
+  </div>
+</div>
