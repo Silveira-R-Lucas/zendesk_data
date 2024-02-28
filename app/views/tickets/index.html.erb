@@ -18,8 +18,14 @@
         <h5 class="col col-sm-9">Squad</h5>
       </div>
       <div class="row m10">
-        <%= select_tag(:prioridade, options_for_select(@prioridades.prepend('')), value: '', class: "tkt-select-form col-4 tkt-text-field-form tkt-border-form") %>
+        <%= select_tag(:prioridade, options_for_select(@prioridades.prepend('', 'Sem prioridade atribuída')), value: '', class: "tkt-select-form col-4 tkt-text-field-form tkt-border-form") %>
         <%= select_tag(:fila, options_for_select(@grupos.prepend('')), value: '', class: "tkt-squad-form select-form col-5 tkt-text-field-form tkt-border-form") %>
+      </div>
+      <div class="row m10">
+        <h5 class="col col-lg-2 ml-less5">Status</h5>
+      </div>
+      <div class="row m10">
+        <%= select_tag(:status, options_for_select(@status), value: '', class: "tkt-select-form col-4 tkt-text-field-form tkt-border-form") %>
       </div>
     <div class="row tkt-btn-row">
       <%= submit_tag('Busca', class: "btn btn-dark col col-lg-2 tkt-form-btn")%>
@@ -46,9 +52,9 @@
       <% @tickets.each do |ticket| %>
           <tr>
             <td><%= ticket.id %></td>
-            <td><%= ticket.criado_em %></td>
-            <td><%= ticket.organization&.nome || ticket.tipo_cliente %></td>
-            <td><%= ticket.prioridade %></td>
+            <td><%= ActiveSupport::TimeZone["America/Sao_Paulo"].parse(Ticket.last.criado_em.to_s).strftime('%Y-%m-%d') %></td>
+            <td><%= (ticket.tipo_cliente if ticket.organization&.nome == "Generic org") || ticket.organization&.nome || ticket.tipo_cliente %></td>
+            <td><%= ticket.prioridade || 'Sem prioridade atribuída' %></td>
             <td><%= ticket.status %></td>
             <td><%= ticket.group&.nome %></td>
             <td><%= ticket.usuario_atribuido&.nome %></td>

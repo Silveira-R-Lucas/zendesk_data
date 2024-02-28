@@ -6,11 +6,10 @@ class LoadTickets
 
   def load
     tickets = []
-    tickets_to_update = []
     next_page = 'tickets'
     while next_page
       response = @zendesk.get(next_page)
-      response["tickets"].each{|o| tickets << o}
+      response["tickets"].each{|t| tickets << t}
       next_page = response["next_page"] ? response["next_page"].gsub('https://luizalabs9937.zendesk.com/api/v2', '') : nil
     end
 
@@ -22,26 +21,40 @@ class LoadTickets
     @logger.info "Iniciando Load de tickets, #{tickets.count} tickets"
     tickets.each do |tkt|
       find_tkt = Ticket.find_by(id: tkt["id"])
+      payload = {
+        id: tkt["id"],
+        requester_id: tkt["requester_id"], 
+        prioridade: tkt["tags"].find{|w| w.include?('priori')},
+        categoria: tkt["tags"].find{|w| w.include?('categ')},
+        regiao: tkt["tags"].find{|w| w.include?('regiao')},
+        tipo_cliente: tkt["tags"].find{|w| w.include?('erno')} || 'externo',
+        tags: tkt["tags"],
+        status: tkt["status"],
+        group_id: tkt["group_id"],
+        observacoes: '',
+        criado_em: tkt["created_at"],
+        atualizado_em: tkt["updated_at"]
+      }
+      
+      if tkt["assignee_id"]
+        payload.merge!({atribuido: tkt["assignee_id"]})
+      else
+        #atribuí a um usuário genérico
+        payload.merge!({atribuido: 7})
+      end
+
+      if tkt["organization_id"]
+        payload.merge!({organization_id: tkt["organization_id"]})
+      else
+        #chamado aberto via whatasapp/utras plataformas o campo de organização vêm de outra forma
+        org = tkt["tags"].find{|w| w.include?('org:')}&.split(':')&.last&.to_i
+        org = Organization.find(org)&.id || 7
+        payload.merge!({organization_id: org,requester_id: 8})
+      end
+
       if find_tkt
-        update_fields = { 
-          id: tkt["id"],
-          organization_id: tkt["organization_id"], 
-          requester_id: tkt["requester_id"], 
-          prioridade: tickets.first["tags"].select{|w| w.include?('priori')}.first,
-          categoria: tickets.first["tags"].select{|w| w.include?('categ')}.first,
-          regiao: tickets.first["tags"].select{|w| w.include?('regiao')}.first,
-          tipo_cliente: tickets.first["tags"].select{|w| w.include?('erno')}.first || 'externo',
-          tags: tkt["tags"],
-          status: tkt["status"],
-          group_id: tkt["group_id"],
-          atribuido: tkt["assignee_id"],
-          observacoes: '',
-          criado_em: tkt["created_at"],
-          atualizado_em: tkt["updated_at"]
-        }
         @logger.info "ticket id: #{tkt["id"]} já existe"
-        tickets_to_update << update_fields
-        update_fields.each do |key, value| 
+        payload.each do |key, value| 
           if find_tkt[key] != value
             find_tkt.update_attribute(key, value)
             @logger.info "Campo #{key} atualizado para o ticket id: #{tkt["id"]}"
@@ -51,22 +64,9 @@ class LoadTickets
       end
 
       creation_response = Ticket.new(
-        id: tkt["id"],
-        organization_id: tkt["organization_id"], 
-        requester_id: tkt["requester_id"], 
-        prioridade: tickets.first["tags"].select{|w| w.include?('priori')}.first,
-        categoria: tickets.first["tags"].select{|w| w.include?('categ')}.first,
-        regiao: tickets.first["tags"].select{|w| w.include?('regiao')}.first,
-        tipo_cliente: tickets.first["tags"].select{|w| w.include?('erno')}.first || 'externo',
-        tags: tkt["tags"].join('/'),
-        status: tkt["status"],
-        group_id: tkt["group_id"],
-        atribuido: tkt["assignee_id"],
-        observacoes: '',
-        criado_em: tkt["created_at"],
-        atualizado_em: tkt["updated_at"]
+        payload
       )
-      @logger.info "Erro ao criar ticket #{tkt["name"]}, errors: #{creation_response.errors.full_messages}" unless creation_response.save
+      @logger.error "Erro ao criar ticket #{tkt["name"]}, \n Payload: #{payload} \n errors: #{creation_response.errors.full_messages}" unless creation_response.save
     end
 
     @logger.info "Load de tickets finalizado"

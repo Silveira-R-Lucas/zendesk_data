@@ -1,5 +1,5 @@
 class Ticket < ActiveRecord::Base
-  validates :status, :id, :prioridade, :presence => true
+  validates :status, :id, :presence => true
   has_one  :grupo
   belongs_to  :organization,
               foreign_key: 'organization_id',
