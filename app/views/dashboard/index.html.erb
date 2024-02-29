@@ -1,2 +1,14 @@
-<%= bar_chart @org_tickets %>
-<%= line_chart @tickets.group_by_month(:criado_em, format: "%b").count %>
+<div class="container page">
+  <h1 class="m10">Total tickets abertos por região</h1>
+  <%= pie_chart Ticket.group(:regiao).count.reject{ |k| k == nil },
+    colors: ['pink', 'violet', 'brown', 'blue']
+  %>
+  <h1 class="m10">Total tickets abertos por prioridade</h1>
+  <%= pie_chart Ticket.group(:prioridade).count.reject{ |k| k == nil },
+    colors: ['red', 'orange', 'purple', 'blue']
+  %>
+  <h1 class="m10">Gráfico 1</h1>
+  <%= bar_chart @org_tickets %>
+  <h2 class="m10">Total tickets abertos por mês</h2>
+  <%= line_chart @tickets.group_by_month(:criado_em, format: "%b").count %>
+</div>

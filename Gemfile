@@ -3,6 +3,8 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.6.3'
 gem 'kaminari'
+gem 'pg_search'
+gem 'rails-autocomplete'
 gem 'turbo-rails'
 gem "chartkick"
 gem "groupdate"
@@ -13,6 +15,7 @@ gem 'bootstrap', '~> 5.3.2'
 gem 'dartsass-sprockets'
 gem  'sprockets-rails', '~> 2.3.2'
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.1'
 # Use sqlite3 as the database for Active Record

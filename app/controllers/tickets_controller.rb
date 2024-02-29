@@ -1,10 +1,12 @@
 class TicketsController < ApplicationController
+  autocomplete :organization, :nome
   def index
-    @prioridades = Ticket.pluck(:prioridade).compact.uniq
-    @grupos = Group.pluck(:nome).compact.uniq
+    @prioridades = Ticket.pluck(:prioridade).compact.uniq.sort
+    @grupos = Group.pluck(:nome).compact.uniq.sort
     @tickets = Ticket.all
-    @status = Ticket.pluck(:status).compact.uniq
-
+    @status = Ticket.pluck(:status).compact.uniq.sort
+    @clientes = Organization.pluck(:nome).compact.uniq.sort
+    @clientes.delete("Generic org")
     if params[:search].present?
       @tickets= Organization.find_by(nome: params[:search])&.tickets
     elsif params[:start_date].present? && params[:end_date].present?
@@ -14,7 +16,8 @@ class TicketsController < ApplicationController
       priori = nil if params[:prioridade] == 'Sem prioridade atribuída' || params[:prioridade]
       @tickets = @tickets.where(prioridade: priori)
     elsif params[:fila].present?
-      @tickets= Group.find_by(nome: params[:fila]).tickets
+      fila = Group.find_by(nome: params[:fila])&.id
+      @tickets = @tickets.where(group_id: fila)
     elsif params[:status].present?
       @tickets = @tickets.where(status: params[:status])
     end

@@ -1,6 +1,28 @@
 // Custom bootstrap variables must be set or imported *before* bootstrap.
 @import "bootstrap";
 
+html, body {
+  margin: 0;
+  height: 100%;
+}
+
+footer { 
+  height:5%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 4%;
+  position: static;
+  right: 0;bottom:0;left:0;
+}
+
+.page{
+  position: relative;
+  min-height: 100%;
+  min-height: 100vh;
+}
+
 .tkt-btn-row {
   display: flex;
   justify-content: flex-end;
@@ -42,6 +64,7 @@
 
 .ml-less5 {
   margin-left: -5px;
+  text-align: start;
 }
 
 .tkt-form-btn {
@@ -49,11 +72,22 @@
   margin-top: 10px;
 }
 
+.tkt-form-date-field{
+  text-align: center;
+}
+
 .tkt-border-form{
   border-color: #c4c8cb;
   border-radius: 6px;
+
 }
 
 .txt-align-c{
   text-align: center;
+}
+
+.ui-autocomplete{
+  width: 19%;
+  background-color: whitesmoke;
+  border-radius: 10px;
 }

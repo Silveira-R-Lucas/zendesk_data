@@ -1,31 +1,31 @@
-<div class="container">
+<div class="container page">
   <h1 class="m10">Tickets</h1>
   <div class="container text-center">
     <%= form_tag(tickets_path, method: "GET") do |form| %>
-      <div class="row">
-        <h5 class="col col-lg-2">Cliente</h5>
-        <h5 class="col col-sm-9 ml-less1">Data</h5>
+      <div class="row m10">
+        <h5 class="col col-lg-1 ml-less5">Cliente</h5>
+        <h5 class="col col-sm-11 ml-less1">Data</h5>
       </div>
       <div class="row m10">
-        <%= text_field_tag(:search, params[:search], class: "col-4 tkt-text-field-form tkt-border-form") %>
+        <%= autocomplete_field_tag('search', '', autocomplete_organization_nome_tickets_path, :class => "col-4 tkt-text-field-form tkt-border-form", :data => { toggle: 'collapse' }) %>
         <%= label_tag(:start_date, "Inicio", class: 'w-auto tkt-data-form') %>
-        <%= date_field_tag :start_date, '',class: "col col-lg-2 tkt-border-form" %>
+        <%= date_field_tag :start_date, '',class: "col col-lg-2 tkt-border-form tkt-form-date-field" %>
         <%= label_tag(:end_date, "Fim", class: 'w-auto') %>
-        <%= date_field_tag :end_date, '',class: "col col-lg-2 tkt-border-form" %>
+        <%= date_field_tag :end_date, '',class: "col col-lg-2 tkt-border-form tkt-form-date-field" %>
       </div>
       <div class="row m10">
-        <h5 class="col col-lg-2 ml-less5">Prioridade</h5>
-        <h5 class="col col-sm-9">Squad</h5>
+        <h5 class="col col-lg-1 ml-less5">Prioridade</h5>
+        <h5 class="col col-sm-11">Squad</h5>
       </div>
       <div class="row m10">
         <%= select_tag(:prioridade, options_for_select(@prioridades.prepend('', 'Sem prioridade atribuída')), value: '', class: "tkt-select-form col-4 tkt-text-field-form tkt-border-form") %>
         <%= select_tag(:fila, options_for_select(@grupos.prepend('')), value: '', class: "tkt-squad-form select-form col-5 tkt-text-field-form tkt-border-form") %>
       </div>
       <div class="row m10">
-        <h5 class="col col-lg-2 ml-less5">Status</h5>
+        <h5 class="col col-lg-1 ml-less5">Status</h5>
       </div>
       <div class="row m10">
-        <%= select_tag(:status, options_for_select(@status), value: '', class: "tkt-select-form col-4 tkt-text-field-form tkt-border-form") %>
+        <%= select_tag(:status, options_for_select(@status.prepend('')), value: '', class: "tkt-select-form col-4 tkt-text-field-form tkt-border-form") %>
       </div>
     <div class="row tkt-btn-row">
       <%= submit_tag('Busca', class: "btn btn-dark col col-lg-2 tkt-form-btn")%>
