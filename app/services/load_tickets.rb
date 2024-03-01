@@ -25,15 +25,15 @@ class LoadTickets
         id: tkt["id"],
         requester_id: tkt["requester_id"], 
         prioridade: tkt["tags"].find{|w| w.include?('priori')},
-        categoria: tkt["tags"].find{|w| w.include?('categ')},
+        categoria: tkt["tags"].find{|w| w.include?('categ')} || 'Não atribuído',
         regiao: tkt["tags"].find{|w| w.include?('regiao')},
         tipo_cliente: tkt["tags"].find{|w| w.include?('erno')} || 'externo',
         tags: tkt["tags"],
         status: tkt["status"],
         group_id: tkt["group_id"],
         observacoes: '',
-        criado_em: tkt["created_at"],
-        atualizado_em: tkt["updated_at"]
+        criado_em: ActiveSupport::TimeZone["America/Sao_Paulo"].parse(tkt["created_at"].to_s),
+        atualizado_em: ActiveSupport::TimeZone["America/Sao_Paulo"].parse(tkt["updated_at"].to_s)
       }
       
       if tkt["assignee_id"]
@@ -48,7 +48,7 @@ class LoadTickets
       else
         #chamado aberto via whatasapp/utras plataformas o campo de organização vêm de outra forma
         org = tkt["tags"].find{|w| w.include?('org:')}&.split(':')&.last&.to_i
-        org = Organization.find(org)&.id || 7
+        org = (Organization.find_by(id: org)&.id if org) || 7
         payload.merge!({organization_id: org,requester_id: 8})
       end
 

@@ -23,5 +23,10 @@ class TicketsController < ApplicationController
     end
 
     @tickets = @tickets ? Kaminari.paginate_array(@tickets.order(criado_em: :desc)).page(params[:page]).per(50) : nil
+
+    respond_to do |format|
+      format.html
+      format.csv { send_data Ticket.to_csv(@tickets), filename: "tickets-#{DateTime.now.strftime("%d%m%Y%H%M")}.csv"}
+    end
   end
 end
