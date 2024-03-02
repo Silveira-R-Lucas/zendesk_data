@@ -24,9 +24,9 @@ class LoadTickets
       payload = {
         id: tkt["id"],
         requester_id: tkt["requester_id"], 
-        prioridade: tkt["tags"].find{|w| w.include?('priori')},
+        prioridade: tkt["tags"].find{|w| w.include?('priori')}|| 'Não atribuído',
         categoria: tkt["tags"].find{|w| w.include?('categ')} || 'Não atribuído',
-        regiao: tkt["tags"].find{|w| w.include?('regiao')},
+        regiao: tkt["tags"].find{|w| w.include?('regiao')}|| 'Não atribuído',
         tipo_cliente: tkt["tags"].find{|w| w.include?('erno')} || 'externo',
         tags: tkt["tags"],
         status: tkt["status"],

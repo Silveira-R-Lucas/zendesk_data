@@ -48,6 +48,9 @@ footer {
 .tkt-data-form {
   margin-left: 15%;
 }
+.tkt-form-field-title{
+  text-align: start;
+}
 
 .tkt-select-form {
   height: 30px;
@@ -90,4 +93,12 @@ footer {
   width: 19%;
   background-color: whitesmoke;
   border-radius: 10px;
+}
+
+.ui-helper{
+  display: none;
+}
+
+#chart-1, #chart-2, #chart-3, #chart-4, #chart-5{
+  background-color: rgb(255, 255, 255);
 }

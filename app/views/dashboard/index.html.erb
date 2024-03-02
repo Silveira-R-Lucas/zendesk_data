@@ -1,18 +1,28 @@
 <div class="container page">
-  <h2 class="m10">Total tickets abertos por mês</h2>
-  <%= area_chart @tickets.group_by_month(:criado_em, format: "%b").count, download: true %>
+  <h2 class="m10">Total tickets por mês</h2>
+  <%= area_chart @tickets.group_by_month(:criado_em, format: "%b").count,
+  colors: ['#FF9300'],
+  loading: "Carregando...", download: true %>
   <h2 class="m10">Total tickets abertos por região</h2>
   <%= pie_chart @hash_filtrado_tkt_regiao,
     colors: ['#E400FF', '#FF9300', '#8FFF00'],
+    loading: "Carregando...", 
     download: true
   %>
-  <h2 class="m10">Total tickets abertos por prioridade</h2>
+  <h2 class="m10">Total tickets por prioridade</h2>
   <%= pie_chart @tickets.group(:prioridade).count.reject{ |k| k == nil },
     colors: ['#922B21', '#D35400', '#EB984E', '#F8C471'],
+    loading: "Carregando...", 
     download: true
   %>
   <h2 class="m10">Tickets por cliente</h2>
-  <%= column_chart @org_tickets, download: true %>
+  <%= column_chart @org_tickets, loading: "Carregando...",
+  colors: ['#EB984E', '#F8C471'],
+  download: true %>
   <h2 class="m10">Linha do tempo - Tickets por categoria</h2>
-  <%= line_chart @tickets.group(:categoria).group_by_month(:criado_em).count, download: true %>
+  <%= line_chart @tickets.group(:categoria).group_by_month(:criado_em).count, loading: "Carregando...",  download: true %>
+  <h2 class="m10">Tickets por Fila</h2>
+  <%= column_chart @tkts_filas, loading: "Carregando...", 
+  colors: ['#f1948a'],
+  download: true %>
 </div>
