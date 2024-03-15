@@ -2,9 +2,13 @@
   "name": "zendesk_data",
   "private": true,
   "dependencies": {
+    "autoprefixer": "^10.4.18",
     "chart.js": "^4.4.1",
     "chartkick": "^5.0.1",
     "js-autocomplete": "^1.0.4",
-    "stimulus": "^3.2.2"
+    "postcss": "^8.4.35",
+    "stimulus": "^3.2.2",
+    "stimulus_reflex": "^3.5.0-rc4",
+    "tailwindcss": "^3.4.1"
   }
 }
