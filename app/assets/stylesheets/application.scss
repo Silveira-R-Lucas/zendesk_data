@@ -12,7 +12,6 @@ footer {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 4%;
   position: static;
   right: 0;bottom:0;left:0;
 }
@@ -39,6 +38,10 @@ footer {
 
 .m10{
   margin: 1%;
+}
+
+.m3{
+  margin-right: 3%;
 }
 
 .w-auto{
@@ -136,6 +139,7 @@ footer {
   border-radius: 9999px;
   color: #a1832a;
   font-weight: 500;
+  width: 6em;
 }
 
 #status-open{
@@ -143,6 +147,7 @@ footer {
   border-radius: 9999px;
   color: #a50313;
   font-weight: 500;
+  width: 6em;
 }
 
 #status-solved{
@@ -150,11 +155,13 @@ footer {
   border-radius: 9999px;
   color: #06492a;
   font-weight: 500;
+  width: 6em;
 }
 
 #status-closed{
   background-color: #ce00ff52;
   border-radius: 9999px;
+  width: 6em;
 }
 
 #status-pending{
@@ -162,12 +169,13 @@ footer {
   border-radius: 9999px;
   color: #1b3e6d;
   font-weight: 500;
-  width: 7em;
+  width: 6em;
 }
 
 #status-hold{
   background-color: #0012ff52;
   border-radius: 9999px;
+  width: 6em;
 }
 
 .table, :after, :before {
@@ -177,4 +185,56 @@ footer {
 
 .page{
   padding: inherit;
+}
+
+.dash-page{
+  width: 100%;
+  margin-left: 0;
+  position: relative;
+  min-height: 100%;
+  min-height: 100vh;
+}
+
+.ml-10{
+  margin-left: 10%;
+}
+
+.dash-row{
+  width: 100vw;
+}
+
+#filter-col{
+  background-color: #0f2b46;
+  color: ghostwhite;
+}
+
+#toggle-dash{
+  background-color: white;
+  border: unset;
+  height: 70px;
+  margin-left: 55%;
+  border-radius: 99999px;
+  display: flex;
+  align-items: center;
+}
+
+.btn-rotate{
+  transform: rotate(180deg);
+}
+
+.dash-title-btn{
+  display: flex;
+  align-items: center;
+  margin: 30% 0% 10% 10%;
+}
+
+.dash-filter-title{
+}
+
+.hide{
+  transform: translate(-70%);
+}
+
+.filter-dash-date-field{
+  width: max-content;
 }

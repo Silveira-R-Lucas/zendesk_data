@@ -1,28 +1,110 @@
-<div class="container page">
-  <h2 class="m10">Total tickets por mês</h2>
-  <%= area_chart @tickets.group_by_month(:criado_em, format: "%b").count,
-  colors: ['#FF9300'],
-  loading: "Carregando...", download: true %>
-  <h2 class="m10">Total tickets abertos por região</h2>
-  <%= pie_chart @hash_filtrado_tkt_regiao,
-    colors: ['#E400FF', '#FF9300', '#8FFF00'],
-    loading: "Carregando...", 
-    download: true
-  %>
-  <h2 class="m10">Total tickets por prioridade</h2>
-  <%= pie_chart @tickets.group(:prioridade).count.reject{ |k| k == nil },
-    colors: ['#922B21', '#D35400', '#EB984E', '#F8C471'],
-    loading: "Carregando...", 
-    download: true
-  %>
-  <h2 class="m10">Tickets por cliente</h2>
-  <%= column_chart @org_tickets, loading: "Carregando...",
-  colors: ['#EB984E', '#F8C471'],
-  download: true %>
-  <h2 class="m10">Linha do tempo - Tickets por categoria</h2>
-  <%= line_chart @tickets.group(:categoria).group_by_month(:criado_em).count, loading: "Carregando...",  download: true %>
-  <h2 class="m10">Tickets por Fila</h2>
-  <%= column_chart @tkts_filas, loading: "Carregando...", 
-  colors: ['#f1948a'],
-  download: true %>
+<div class="container page dash-page"> 
+  <div class="row dash-row">
+    <div id="filter-col" class="col-2">
+      <div class="dash-title-btn">
+        <h1 class="dash-filter-title"> Filtro </h1>
+        <button id="toggle-dash" class="">
+          <svg width="60px" height="800px" viewBox="-0.5 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 22.4199C17.5228 22.4199 22 17.9428 22 12.4199C22 6.89707 17.5228 2.41992 12 2.41992C6.47715 2.41992 2 6.89707 2 12.4199C2 17.9428 6.47715 22.4199 12 22.4199Z" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M13.4102 16.4199L10.3502 13.55C10.1944 13.4059 10.0702 13.2311 9.98526 13.0366C9.9003 12.8422 9.85645 12.6321 9.85645 12.4199C9.85645 12.2077 9.9003 11.9979 9.98526 11.8035C10.0702 11.609 10.1944 11.4342 10.3502 11.29L13.4102 8.41992" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+
+      <%= form_tag(dashboards_path, method: "GET") do |form| %>
+        <div class="row m10">
+          <%= label_tag(:started_at, "Inicio", class: 'w-auto') %>
+          <%= date_field_tag :started_at, '',class: "col col-lg-2 filter-dash-date-field" %>
+        </div>
+        <div class="row m10">
+          <%= label_tag(:ended_at, "Fim", class: 'w-auto m3 m10') %>
+          <%= date_field_tag :ended_at, '',class: "col col-lg-2 filter-dash-date-field" %>
+        </div>
+        <div class="row m10">
+          <label class="w-auto">Região</label>
+          <%= select_tag(:status, options_for_select(['SE-1','NE-1']), value: '', class: "col col-lg-2 filter-dash-date-field") %>
+        </div>
+        <div class="row m10">
+          <label class="w-auto">Status</label>
+          <%= select_tag(:status, options_for_select(['SE-1','NE-1']), value: '', class: "col col-lg-2 filter-dash-date-field") %>
+        </div>
+        <div class="row m10">
+          <label class="w-auto">Prioridade</label>
+          <%= select_tag(:status, options_for_select(['SE-1','NE-1']), value: '', class: "col col-lg-2 filter-dash-date-field") %>
+        </div>
+        <div class="row m10">
+          <label class="w-auto">Categoria</label>
+          <%= select_tag(:status, options_for_select(['SE-1','NE-1']), value: '', class: "col col-lg-2 filter-dash-date-field") %>
+        </div>
+        <div class="row m10">
+          <label class="w-auto">Squad</label>
+          <%= select_tag(:status, options_for_select(['SE-1','NE-1']), value: '', class: "col col-lg-2 filter-dash-date-field") %>
+        </div>
+        <div></div>
+        <%= submit_tag('Busca', class: "btn btn-dark col col-lg-2 tkt-form-btn")%>
+      <% end %>
+    </div>
+    <div id="relatorio" class="col-8 ml-10">
+      <h2 class="m10">Total tickets por mês</h2>
+      <%= area_chart @tickets.group_by_month(:criado_em, format: "%b").count,
+      colors: ['#FF9300'],
+      loading: "Carregando...", download: true %>
+      <h2 class="m10">Total tickets abertos por região</h2>
+      <%= pie_chart @hash_filtrado_tkt_regiao,
+        colors: ['#E400FF', '#FF9300', '#8FFF00'],
+        loading: "Carregando...", 
+        download: true
+      %>
+      <h2 class="m10">Total tickets por prioridade</h2>
+      <%= pie_chart @tickets.group(:prioridade).count.reject{ |k| k == nil },
+        colors: ['#922B21', '#D35400', '#EB984E', '#F8C471'],
+        loading: "Carregando...", 
+        download: true
+      %>
+      <h2 class="m10">Tickets por cliente</h2>
+      <%= column_chart @org_tickets, loading: "Carregando...",
+      colors: ['#EB984E', '#F8C471'],
+      download: true %>
+      <h2 class="m10">Linha do tempo - Tickets por categoria</h2>
+      <%= line_chart @tickets.group(:categoria).group_by_month(:criado_em).count, loading: "Carregando...",  download: true %>
+      <h2 class="m10">Tickets por Fila</h2>
+      <%= column_chart @tkts_filas, loading: "Carregando...", 
+      colors: ['#f1948a'],
+      download: true %>
+    </div>
+  </div>
 </div>
+<script>
+  (function hideColumn(d) {
+    "use strict";
+
+    const column = d.querySelector("#filter-col");
+    const toggle = d.querySelector("#toggle-dash");
+    const rel = d.querySelector("#relatorio")
+    let hided = 0;
+    toggle.addEventListener("click", hideLeftColumn);
+
+    function sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    function hideLeftColumn() {
+        if (hided == 1) {
+          column.animate([{transform: "translate(0%)"}], {duration: 600});
+          toggle.animate([{transform: "rotate(180deg)"}, {transform: "rotate(0deg)"}], {duration: 400});
+          rel.animate([{transform: "translate(2%)"}], {duration: 450});
+          toggle.classList.remove("btn-rotate");
+          sleep(550).then(() => { column.classList.remove("hide"); rel.classList.add("ml-10");});
+          rel.classList.add("ml-10");
+          hided = 0;
+        } else {
+          column.animate([{transform: "translate(-70%)"}], {duration: 600});
+          toggle.animate([{transform: "rotate(0deg)"}, {transform: "rotate(180deg)"}], {duration: 400});
+          rel.animate([{transform: "translate(-10%)"}], {duration: 580});
+          toggle.classList.add("btn-rotate");
+          sleep(570).then(() => { column.classList.add("hide"); rel.classList.remove("ml-10");});
+          hided = 1;
+        }
+    }
+  })(document);
+</script>

@@ -8,7 +8,7 @@
         <h5 class="col col-sm-6 tkt-form-field-title">Data</h5>
       </div>
       <div class="row m10">
-        <%= autocomplete_field_tag('search', '', autocomplete_organization_nome_tickets_path, :class => "col-4 tkt-text-field-form tkt-border-form", :data => { toggle: 'collapse' }) %>
+        <%= autocomplete_field_tag('search', '', autocomplete_organization_nome_tickets_path, :class => "col-4 tkt-text-field-form tkt-border-form", :data => { toggle: 'collapse'}) %>
         <%= label_tag(:started_at, "Inicio", class: 'w-auto tkt-data-form') %>
         <%= date_field_tag :started_at, '',class: "col col-lg-2 tkt-border-form tkt-form-date-field" %>
         <%= label_tag(:ended_at, "Fim", class: 'w-auto') %>
