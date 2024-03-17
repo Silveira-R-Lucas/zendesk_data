@@ -20,10 +20,9 @@ class Ticket < ActiveRecord::Base
   scope :status, -> status {where(status: status)}
   scope :prioridade, -> prioridade {where(prioridade: prioridade)}
   scope :by_period, -> range { where(criado_em: range) }
+  scope :by_clientes, -> list { where(organization_id: Organization.where(nome: list)&.pluck(:id))}
 
   require 'csv'
-
-  FILTERS = %w[criado_em].freeze
 
   def self.to_csv(tickets)
     CSV.generate do |csv|

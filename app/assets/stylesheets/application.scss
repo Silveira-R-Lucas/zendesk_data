@@ -235,6 +235,34 @@ footer {
   transform: translate(-70%);
 }
 
-.filter-dash-date-field{
-  width: max-content;
+.filter-dash-row{
+  padding-left: calc(var(--bs-gutter-x)* .5);
+  --bs-gutter-x: 1.5rem;
+  --bs-gutter-y: 0;
+  display: grid;
+}
+.filter-dash-input-field{
+  width: 100%;
+  padding-left: calc(var(--bs-gutter-x)* .5);
+  border-color: #c4c8cb;
+  border-radius: 6px;
+  height: 2rem;
+}
+
+.filter-dash-add-btn{
+  justify-self: end;
+  background-color: #0dcaf099;
+}
+
+.filter-dash-btn{
+  background-color: #0dcaf0;
+}
+
+.dash-title{
+  margin: 4% 0% 5% 0%;
+}
+
+.rm-filter-row{
+  display: flex;
+  justify-content: center;
 }
