@@ -212,7 +212,7 @@ footer {
   background-color: white;
   border: unset;
   height: 70px;
-  margin-left: 55%;
+  margin-left: 60%;
   border-radius: 99999px;
   display: flex;
   align-items: center;
@@ -226,9 +226,6 @@ footer {
   display: flex;
   align-items: center;
   margin: 30% 0% 10% 10%;
-}
-
-.dash-filter-title{
 }
 
 .hide{
@@ -258,11 +255,33 @@ footer {
   background-color: #0dcaf0;
 }
 
-.dash-title{
-  margin: 4% 0% 5% 0%;
+.page-title{
+  margin: 4% 0% 3% 0%;
 }
 
 .rm-filter-row{
   display: flex;
   justify-content: center;
+}
+
+.automation-row{
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 2%;
+  border: solid #6c757d;
+  border-width: 1px;
+  border-radius: 6px;
+}
+
+.automation-play-btn{
+  border-radius: 99px;
+  background-color: transparent;
+  width: 60px;
+  height: 60px;
+}
+
+.automation-service-title{
+  margin-top: 3%;
 }

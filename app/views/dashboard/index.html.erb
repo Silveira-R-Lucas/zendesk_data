@@ -2,7 +2,7 @@
   <div class="row dash-row">
     <div id="filter-col" class="col-2">
       <div class="dash-title-btn">
-        <h1 class="dash-filter-title"> Filtro </h1>
+        <h2 class="dash-filter-title"> Filtro </h2>
         <button id="toggle-dash" class="">
           <svg width="60px" viewBox="-0.5 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M12 22.4199C17.5228 22.4199 22 17.9428 22 12.4199C22 6.89707 17.5228 2.41992 12 2.41992C6.47715 2.41992 2 6.89707 2 12.4199C2 17.9428 6.47715 22.4199 12 22.4199Z" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -83,30 +83,30 @@
       <% end %>
     </div>
     <div id="relatorio" class="col-8 ml-10">
-      <h1 class="dash-title">Dashboards</h1>
-      <h2 class="m10">Timeline total tickets</h2>
+      <h1 class="page-title">Dashboards</h1>
+      <h3 class="m10">Timeline total tickets</h3>
       <%= area_chart @time_tkt,
       colors: ['#FF9300'],
       loading: "Carregando...", download: true %>
-      <h2 class="m10">Total tickets abertos por região</h2>
+      <h3 class="m10">Total tickets abertos por região</h3>
       <%= pie_chart @hash_filtrado_tkt_regiao,
         colors: ['#E400FF', '#FF9300', '#8FFF00'],
         loading: "Carregando...", 
         download: true
       %>
-      <h2 class="m10">Total tickets por prioridade</h2>
+      <h3 class="m10">Total tickets por prioridade</h3>
       <%= pie_chart @tkt_prior,
         colors: ['#922B21', '#D35400', '#EB984E', '#F8C471'],
         loading: "Carregando...", 
         download: true
       %>
-      <h2 class="m10">Tickets por cliente</h2>
+      <h3 class="m10">Tickets por cliente</h3>
       <%= column_chart @org_tickets, loading: "Carregando...",
       colors: ['#EB984E', '#F8C471'],
       download: true %>
-      <h2 class="m10">Timeline total tickets por categoria</h2>
+      <h3 class="m10">Timeline total tickets por categoria</h3>
       <%= line_chart @time_tkt_ctg, loading: "Carregando...",  download: true %>
-      <h2 class="m10">Tickets por Fila</h2>
+      <h3 class="m10">Tickets por Fila</h3>
       <%= column_chart @tkts_filas, loading: "Carregando...", 
       colors: ['#f1948a'],
       download: true %>
