@@ -13,8 +13,10 @@ class Ticket < ActiveRecord::Base
   belongs_to :group,
             foreign_key: 'group_id',
             class_name: 'Group'
-
-  scope :search, -> search { where(organization_id: Organization.find_by(nome: search)&.id) }
+            
+  scope :search_by_client, -> search_client { where(organization_id: Organization.find_by(nome: search)&.id) }
+  scope :search_by_title, -> search_title { where("titulo LIKE ?", "%#{search_title}%") }
+  scope :search_by_description, -> search_description { where("descricao LIKE ?", "%#{search_description}%") }
   scope :fila, -> fila { where(group_id: Group.find_by(nome: fila)&.id)}   
   scope :categoria, -> categoria {where(categoria: categoria)}
   scope :status, -> status {where(status: status)}

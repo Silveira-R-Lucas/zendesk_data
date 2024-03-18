@@ -285,3 +285,39 @@ footer {
 .automation-service-title{
   margin-top: 3%;
 }
+
+.tkt-srch{
+  width: 91.5%;
+}
+
+.slide-out-bck-center {
+	-webkit-animation: slide-out-bck-center 10s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
+	        animation: slide-out-bck-center 10s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
+  position: absolute;
+  width: 100%;
+}
+
+@-webkit-keyframes slide-out-bck-center {
+  0% {
+    -webkit-transform: translateZ(0);
+            transform: translateZ(0);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: translateZ(-1100px);
+            transform: translateZ(-1100px);
+    opacity: 0;
+  }
+}
+@keyframes slide-out-bck-center {
+  0% {
+    -webkit-transform: translateZ(0);
+            transform: translateZ(0);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: translateZ(-1100px);
+            transform: translateZ(-1100px);
+    opacity: 0;
+  }
+}

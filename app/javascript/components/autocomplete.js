@@ -3,7 +3,7 @@ import autocomplete from 'js-autocomplete';
 
 const autocompleteSearch = function() {
   const skills = JSON.parse(document.getElementById('search-data').dataset.clientes)
-  const searchInput = document.getElementById('search');
+  const searchInput = document.getElementById('search_by_client');
 
   if (skills && searchInput) {
     new autocomplete({

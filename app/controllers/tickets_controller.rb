@@ -1,7 +1,9 @@
 class TicketsController < ApplicationController
 
   autocomplete :organization, :nome
-  has_scope :search
+  has_scope :search_by_client
+  has_scope :search_by_title
+  has_scope :search_by_description
   has_scope :fila
   has_scope :categoria 
   has_scope :status 

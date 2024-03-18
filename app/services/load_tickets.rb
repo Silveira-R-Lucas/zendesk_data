@@ -17,11 +17,12 @@ class LoadTickets
       @logger.info "Nenhuma ticket encontrado para o fluxo"
       return
     end
-
     @logger.info "Iniciando Load de tickets, #{tickets.count} tickets"
     tickets.each do |tkt|
       find_tkt = Ticket.find_by(id: tkt["id"])
       payload = {
+        titulo: tkt["subject"],
+        descricao: tkt["description"],
         id: tkt["id"],
         requester_id: tkt["requester_id"], 
         prioridade: tkt["tags"].find{|w| w.include?('priori')}|| 'Não atribuído',
