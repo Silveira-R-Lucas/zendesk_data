@@ -3,6 +3,7 @@ class DashboardController < ApplicationController
   has_scope :categoria 
   has_scope :status 
   has_scope :prioridade
+  has_scope :regiao
 
   def index
     range = if params[:started_at].present? && params[:ended_at].present?

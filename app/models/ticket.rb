@@ -23,6 +23,12 @@ class Ticket < ActiveRecord::Base
   scope :prioridade, -> prioridade {where(prioridade: prioridade)}
   scope :by_period, -> range { where(criado_em: range) }
   scope :by_clientes, -> list { where(organization_id: Organization.where(nome: list)&.pluck(:id))}
+  scope :regiao, -> regiao { 
+    if regiao == 'Sudeste'
+      where("regiao LIKE ?", "%se%")
+    elsif regiao == 'Nordeste'
+      where("regiao LIKE ?", "%ne%")
+    end}  
 
   require 'csv'
 
